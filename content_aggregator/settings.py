@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     
     # custom
     'podcasts.apps.PodcastsConfig',
+
+    # Third Party Apps
+    "django_apscheduler",
+
 ]
 
 MIDDLEWARE = [
@@ -129,3 +133,17 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
