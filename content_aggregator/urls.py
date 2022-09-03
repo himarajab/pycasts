@@ -5,5 +5,6 @@ urlpatterns = [
     path("", include("podcasts.urls")),
     path('admin/', admin.site.urls),
     path('user/', include("users.urls")),
+    path('feed/', include("feed.urls")),
 
 ]
