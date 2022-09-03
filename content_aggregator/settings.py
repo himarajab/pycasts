@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # custom
     'podcasts.apps.PodcastsConfig',
     'feed.apps.FeedConfig',
+    'users.apps.UsersConfig',
 
     # Third Party Apps
     "django_apscheduler",
@@ -148,3 +149,5 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+AUTH_USER_MODEL = 'users.User'
