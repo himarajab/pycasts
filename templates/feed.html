@@ -36,6 +36,8 @@
                 <div class="card-body ml-3">
                   
                   <h3 class="card-title">{{ feed.title }}</h3>
+                  <a href="{% url 'subscribe' feed.pk %}"> Subscribe</a>
+                  <a href="{% url 'unsubscribe' feed.pk %}"> Unsubscribe</a>
                 </div>
               </div>
             </div>
