@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{% static 'main.css' %}" />
   </head>
   <body class="d-flex flex-column">
-    
     <header>
       <nav class="container">
         <div class="row">
@@ -28,6 +27,14 @@
     <main class="container flex-grow-1">
       <div class="row">
         <div class="col">
+          {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
           {% for episode in episodes %}
           <section class="card mb-3">
             <div class="row no-gutters">
