@@ -15,7 +15,8 @@ from django_apscheduler.models import DjangoJobExecution
 
 # Models
 from podcasts.models import Episode
-
+from feed.models import Feed
+from pprint import pprint
 
 logger = logging.getLogger(__name__)
 
@@ -29,18 +30,19 @@ def save_new_episodes(feed):
     Args:
         feed: requires a feedparser object
     """
-    podcast_title = feed.channel.title
-    podcast_image = feed.channel.image["href"]
-
+    title = feed.channel.title
+    image = feed.channel.image["href"]
+    custom_feed, _ = Feed.objects.get_or_create(title=title)
     for item in feed.entries:
         if not Episode.objects.filter(guid=item.guid).exists():
             episode = Episode(
                 title=item.title,
+                feed_id=custom_feed.id,
                 description=item.description,
                 pub_date=parser.parse(item.published),
                 link=item.link,
-                image=podcast_image,
-                podcast_name=podcast_title,
+                image=image,
+                name=title,
                 guid=item.guid,
             )
             episode.save()
@@ -73,7 +75,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_realpython_episodes,
             trigger="interval",
-            minutes=2,
+            minutes=1,
             id="The Real Python Podcast",  # Each job MUST have a unique ID
             max_instances=1,
             # Replaces existing and stops duplicates on restart of the app.
@@ -84,7 +86,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_talkpython_episodes,
             trigger="interval",
-            minutes=2,
+            minutes=1,
             id="Talk Python Feed",
             max_instances=1,
             replace_existing=True,
