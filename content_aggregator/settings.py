@@ -45,7 +45,6 @@ INSTALLED_APPS = [
 
     # Third Party Apps
     "django_apscheduler",
-    'crispy_forms',
 
 ]
 
