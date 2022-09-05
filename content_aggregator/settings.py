@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     # Third Party Apps
     "django_apscheduler",
+    "rest_framework",
+    'knox',
 
 ]
 
@@ -151,3 +153,9 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication',
+    ]
+}
