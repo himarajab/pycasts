@@ -1,17 +1,20 @@
-from django.views.generic import ListView
-from .models import Episode
-from feed.models import Feed
+from podcasts.models import Episode
 from pprint import pprint
-from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework import generics, permissions
+from podcasts.serializers import EpisodeSerializer
+from feed.models import Feed
 
-class HomePageView(LoginRequiredMixin,ListView):
-    template_name = "homepage.html"
-    model = Episode
 
-    def get_context_data(self, **kwargs):
+class EpisodeList(generics.ListAPIView):
+    """
+    List all Episode
+    """
+    serializer_class = EpisodeSerializer
+    permission_classes = (
+		permissions.IsAuthenticated,
+	)
+    def get_queryset(self):
         user = self.request.user
         feeds = Feed.objects.filter(user=user)
-        episodes=Episode.objects.filter(feed__in=feeds)
-        context = super().get_context_data(**kwargs)
-        context["episodes"] = episodes
-        return context
+        queryset_filtered = Episode.objects.filter(feed__in=feeds)
+        return queryset_filtered
