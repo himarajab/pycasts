@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.FeedListView.as_view(), name="feed"),
-    path("<int:feed_id>/", views.subscribe, name="subscribe"),
-    path("unsubscribe/<int:feed_id>/", views.unsubscribe, name="unsubscribe"),
+    path("subscribe/<int:feed_id>/", views.Subscribe.as_view(), name="subscribe"),
+    path("unsubscribe/<int:feed_id>/", views.Unsubscribe.as_view(), name="unsubscribe"),
 ]
