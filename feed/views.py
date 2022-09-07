@@ -1,14 +1,19 @@
-from django.shortcuts import  render, redirect
-from django.views.generic import ListView
-from .models import Feed
 from .models import Feed
 from pprint import pprint
+from rest_framework import generics, permissions
+from feed.serializers import FeedSerializer
 
-class FeedListView(ListView):
 
-    template_name = "feed.html"
+class FeedListView(generics.ListAPIView):
+    """
+    List all Feed
+    """
+    serializer_class = FeedSerializer
+    def get_queryset(self):
+        queryset = Feed.objects.all()
+        return queryset
+    
 
-    model = Feed
     
 
 def subscribe(request,feed_id):
