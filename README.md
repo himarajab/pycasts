@@ -31,3 +31,4 @@ And navigate to `http://127.0.0.1:8000/`.
 ## Walkthrough
 
 APIS to aggregate data from different sources and display to users content from feed they are interested with 
+also I will apply here all  technolgies I learn 
