@@ -86,7 +86,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             fetch_talkpython_episodes,
             trigger="interval",
-            minutes=2,
+            minutes=200,
             id="Talk Python Feed",
             max_instances=1,
             replace_existing=True,

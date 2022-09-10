@@ -133,3 +133,4 @@ dmypy.json
 node_module
 # vscode
 *.vscode*
+dump.rdb
