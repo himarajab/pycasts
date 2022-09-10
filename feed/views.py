@@ -5,7 +5,7 @@ from feed.serializers import FeedSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
-from podcasts.tasks import hello_celery
+from podcasts.tasks import hello_celery,fetch_realpython_episodes,fetch_talkpython_episodes
 
 class FeedListView(generics.ListAPIView):
     """
@@ -26,7 +26,7 @@ class Subscribe(APIView):
         serializer = FeedSerializer(data=request.data)
         feed = Feed.objects.get(id = feed_id)
         updated=feed.user.add(user_id)  
-        hello_celery.delay()
+        fetch_realpython_episodes.delay()
         return Response({"status": "success"}, status=status.HTTP_200_OK)
 
 
