@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,7 +47,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
 
     # Third Party Apps
-    # "django_apscheduler",
     "rest_framework",
     'rest_framework.authtoken',
     'allauth',
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -190,3 +192,14 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_BEAT_SCHEDULE = {
+    "fetch_talkpython_episodes": {
+        "task": "podcasts.tasks.fetch_talkpython_episodes",
+        "schedule": crontab(hour="*/1"),
+    },
+    "fetch_realpython_episodes": {
+        "task": "podcasts.tasks.fetch_realpython_episodes",
+        "schedule": crontab(hour="*/2"),
+    },
+}

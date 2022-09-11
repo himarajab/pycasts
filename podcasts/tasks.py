@@ -1,23 +1,18 @@
 # Standard Library
-import logging
 from pprint import pprint
 
 # Third Party
 import feedparser
 from dateutil import parser
 from celery import shared_task
+from celery.utils.log import get_task_logger
 
 # Models
 from podcasts.models import Episode
 from feed.models import Feed
 
-logger = logging.getLogger(__name__)
 
-
-@shared_task()
-def hello_celery():
-    pprint('hello celery')
-    
+logger = get_task_logger(__name__)
     
 def save_new_episodes(feed):
     """Saves new episodes to the database.
@@ -47,8 +42,14 @@ def save_new_episodes(feed):
 
 
 @shared_task()
+def hello_celery():
+    logger.info("hello_celery task just ran.")
+
+
+@shared_task()
 def fetch_realpython_episodes():
     """Fetches new episodes from RSS for the Real Python Podcast."""
+    logger.info("hello_celery task just ran.")
     _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
     save_new_episodes(_feed)
 
