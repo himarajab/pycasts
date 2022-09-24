@@ -13,6 +13,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
 
 from celery.schedules import crontab
 
@@ -127,6 +128,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('ar', _('Arabic')),
+)
 
 TIME_ZONE = 'UTC'
 

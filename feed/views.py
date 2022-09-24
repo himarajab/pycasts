@@ -5,6 +5,8 @@ from feed.serializers import FeedSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
+from django.utils.translation import gettext_lazy as _
+
 
 class FeedListView(generics.ListAPIView):
     """
@@ -25,7 +27,7 @@ class Subscribe(APIView):
         serializer = FeedSerializer(data=request.data)
         feed = Feed.objects.get(id = feed_id)
         updated=feed.user.add(user_id)  
-        return Response({"status": "success"}, status=status.HTTP_200_OK)
+        return Response({"status": _("success")}, status=status.HTTP_200_OK)
 
 
 class Unsubscribe(APIView):
